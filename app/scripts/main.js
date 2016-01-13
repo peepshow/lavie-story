@@ -258,7 +258,7 @@
 			})
 			//.setPin("#dailyuse")
 			.setTween(image1)
-			.addIndicators() // add indicators (requires plugin)
+			//.addIndicators() // add indicators (requires plugin)
 			.addTo(controller);
 
     // var scene = new ScrollMagic.Scene({
