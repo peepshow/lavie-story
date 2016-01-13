@@ -4,9 +4,19 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
-
+// import ghPages from 'gulp-gh-pages';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+//
+// gulp.task('deploy', function() {
+//   return gulp.src('./dist/**/*')
+//     .pipe(ghPages());
+// });
+gulp.task('deploy', ['build'], () => {
+  return gulp.src('dist')
+    .pipe($.subtree());
+    //.pipe($.clean());
+});
 
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
@@ -38,8 +48,8 @@ function lint(files, options) {
     return gulp.src(files)
       .pipe(reload({stream: true, once: true}))
       .pipe($.eslint(options))
-      .pipe($.eslint.format())
-      .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
+      .pipe($.eslint.format());
+      //.pipe($.if(!browserSync.active, $.eslint.failAfterError()));
   };
 }
 const testLintOptions = {
